@@ -307,6 +307,7 @@ var Player = {
 		doZoom: function(level) {
 			var vm = this;
 			var zoomMult = 1;
+			//var count = 0;
 			var cursor = {x:vm.current.cursor.x/vm.zoom, y:vm.current.cursor.y/vm.zoom};
 			switch(level.zoom) {
 				case 0:
@@ -317,9 +318,28 @@ var Player = {
 					break;
 				case 2:
 					zoomMult *= 1.1;
+					if(zoomMult==1.1){
+						//count++;
+					}
+					
+					
+					
+					
 					break;
 			}
-			vm.zoomMult *= zoomMult;
+			
+			
+			
+			console.log(vm.zoomMult);
+			//console.log("zoommult is",+zoomMult);
+			if(vm.zoomMult>=0.99&&vm.zoomMult <= 1.33)
+			{	
+				vm.zoomMult = zoomMult+0.1;
+				//console.log(vm.zoomMult);
+			}
+			else if(vm.zoomMult <= 0.9900000000000001){
+				vm.zoomMult *= zoomMult;
+			}
 			vm.computeSize();
 			vm.moveCursor({x:vm.zoom*cursor.x, y:vm.zoom*cursor.y});
 		},
@@ -341,6 +361,7 @@ var Player = {
 		var imageObj = new Image();
 		imageObj.onload = function() {
 			vm.imageSize = imageObj.width;
+			console.log(vm.imageSize);
 
 			vm.onLoad();
 			vm.startDemoMode();
